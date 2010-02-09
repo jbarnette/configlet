@@ -1,0 +1,59 @@
+= Configlet
+
+* http://github.com/jbarnette/configlet
+
+== Description
+
+A stupid simple wrapper for environment variables.
+
+This doesn't deserve to be released as a gem, but I'm using it in two
+different projects. Seriously, go find a real configuration library
+and use it instead.
+
+== Examples
+
+    require "configlet"
+
+    # assuming...
+    ENV["THUNK_STATUS"]   = "crazy-awesome"
+    ENV["THUNK_FINISHED"] = "false"
+
+    # some bits of optional config
+    Configlet.prefix = :thunk
+    Configlet.default :token => "default-token"
+    Configlet.munge(:finished) { |k| "true" == k }
+
+    # grabbin' values
+    Configlet[:status]   # => "crazy-awesome"
+    Configlet[:finished] # => false
+    Configlet[:token]    # => "default-token"
+
+It's a module, so +include+ or +extend+ it wherever you want. It
+extends itself for your convenience.
+
+== Installation
+
+    $ gem install configlet
+
+== License
+
+Copyright 2010 John Barnette (jbarnette@rubyforge.org)
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
