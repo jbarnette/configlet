@@ -27,14 +27,14 @@ module Configlet
   # <tt>defaults["severity"]</tt> if the env var isn't set.
 
   def [] key
-    mungers[key.to_s].call ENV[envify key] || defaults[key.to_s]
+    mungers[key.to_s].call ENV[envify(key)] || defaults[key.to_s]
   end
 
   # Set an environment value. +key+ is translated to an unfriendly
   # environment name as in Configlet#[] above.
 
   def []= key, value
-    ENV[envify key] = value
+    ENV[envify(key)] = value
   end
 
   # Set one or more default values. Use "friendly" names, not env
