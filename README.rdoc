@@ -28,8 +28,16 @@ and use it instead.
     Configlet[:finished] # => false
     Configlet[:token]    # => "default-token"
 
-It's a module, so +include+ or +extend+ it wherever you want. It
-extends itself for your convenience.
+There's also a block form, which is nice if you're setting a lot of
+defaults:
+
+    Configlet.for :thunk do
+      default :token => "default-token"
+      default :host  => "thunk.local"
+    end
+
+Configlet is a module, so +include+ or +extend+ it wherever you
+want. It extends itself for your convenience.
 
 == Installation
 

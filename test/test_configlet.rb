@@ -18,6 +18,17 @@ class TestConfiglet < MiniTest::Unit::TestCase
     assert_equal "bar", Configlet["foo"]
   end
 
+  def test_for
+    ENV["PREFIX_FOO"] = "bar"
+
+    Configlet.for :prefix do
+      default :bar => "baz"
+    end
+
+    assert_equal "bar", Configlet[:foo]
+    assert_equal "baz", Configlet[:bar]
+  end
+
   def test_get
     ENV["FOO"] = "bar"
     assert_equal "bar", Configlet[:foo]

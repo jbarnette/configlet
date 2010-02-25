@@ -13,7 +13,7 @@ module Configlet
 
   # Duh.
 
-  VERSION = "1.0.0"
+  VERSION = "1.1.0"
 
   I = lambda { |v| v } #:nodoc:
 
@@ -52,6 +52,19 @@ module Configlet
 
   def envify key #:nodoc:
     [prefix, key].compact.join("_").tr(".", "_").upcase
+  end
+
+  # Swanky block form. More pleasant to read when setting multiple
+  # defaults, e.g.,
+  #
+  #    Configlet.for :myapp do
+  #      default "email.from" => "noreply@myapp.com"
+  #      default :host        => "myapp.local"
+  #    end
+
+  def for prefix, &block
+    self.prefix = prefix
+    instance_eval(&block)
   end
 
   # Mess with a value when it's retrieved. Useful for turning untyped
