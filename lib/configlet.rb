@@ -5,7 +5,7 @@
 module Configlet
 
   # What's at the front of our environment variables? This will be
-  # upcased and a trailing semicolon will be added, so
+  # upcased and a trailing underscore will be added, so
   # <tt>Configlet[:foo]</tt> with a prefix of <tt>thunk</tt> maps to
   # the <tt>THUNK_FOO</tt> environment variable. Default is +nil+.
 
