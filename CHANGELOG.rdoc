@@ -1,3 +1,8 @@
+=== 1.2.0 / 2010-05-11
+
+* Change Configlet.for to Configlet.config.
+* Deprecate Configlet.for and Configlet.reset.
+
 === 1.1.0 / 2010-02-25
 
 * Add Configlet#for, a sugary block form.
