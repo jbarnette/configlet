@@ -31,7 +31,7 @@ and use it instead.
 There's also a block form, which is nice if you're setting a lot of
 defaults:
 
-    Configlet.for :thunk do
+    Configlet.config :thunk do
       default :token => "default-token"
       default :host  => "thunk.local"
     end

@@ -13,7 +13,7 @@ module Configlet
 
   # Duh.
 
-  VERSION = "1.1.0"
+  VERSION = "1.2.0"
 
   I = lambda { |v| v } #:nodoc:
 
@@ -57,14 +57,19 @@ module Configlet
   # Swanky block form. More pleasant to read when setting multiple
   # defaults, e.g.,
   #
-  #    Configlet.for :myapp do
+  #    Configlet.config :myapp do
   #      default "email.from" => "noreply@myapp.com"
   #      default :host        => "myapp.local"
   #    end
 
-  def for prefix, &block
+  def config prefix, &block
     self.prefix = prefix
     instance_eval(&block)
+  end
+
+  def for *args, &block #:nodoc:
+    warn "Configlet.for is deprecated, and will be removed in 2.0."
+    config(*args, &block)
   end
 
   # Mess with a value when it's retrieved. Useful for turning untyped
@@ -88,6 +93,7 @@ module Configlet
   # Set prefix to +nil+, clear defaults and mungers.
 
   def reset
+    warn "Configlet.reset is deprecated, and will be removed in 2.0."
     self.prefix = nil
 
     defaults.clear
