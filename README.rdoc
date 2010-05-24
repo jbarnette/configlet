@@ -36,6 +36,12 @@ defaults:
       default :host  => "thunk.local"
     end
 
+Defaults can be lazy, too: Just use a lambda. The default will be
+resolved the first time its value is grabbed.
+
+    default :db => lambda { "db://whatever/#{Rails.env}" } # or...
+    default(:db) { "db://whatever/#{Rails.env}" }
+
 Configlet is a module, so +include+ or +extend+ it wherever you
 want. It extends itself for your convenience.
 
@@ -45,7 +51,7 @@ want. It extends itself for your convenience.
 
 == License
 
-Copyright 2010 John Barnette (jbarnette@rubyforge.org)
+Copyright 2010 John Barnette (code@jbarnette.com)
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
