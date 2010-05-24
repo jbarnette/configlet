@@ -27,7 +27,13 @@ module Configlet
   # <tt>defaults["severity"]</tt> if the env var isn't set.
 
   def [] key
-    mungers[key.to_s].call ENV[envify(key)] || defaults[key.to_s]
+    key = key.to_s
+
+    if Proc === value = ENV[envify(key)] || defaults[key]
+      defaults[key] = value = value.call # resolve lambda defaults
+    end
+
+    mungers[key].call value
   end
 
   # Set an environment value. +key+ is translated to an unfriendly
@@ -41,9 +47,24 @@ module Configlet
   # vars, so a default for the <tt>THUNK_SECRET</tt> could be set
   # as <tt>Configlet.default :secret => "sssssh"</tt> (assuming a
   # <tt>"thunk"</tt> prefix).
+  #
+  # If a default value is a lambda, it'll be resolved the first time
+  # the config value is retrieved, and the result of calling the
+  # lambda will be the new default value.
+  #
+  # If a single string or symbol is provided instead of a hash, the
+  # method block form may be used to provide a delayed default. This
+  # is just sugar over providing a lambda:
+  #
+  #    default(:foo) { Rails.env } # is the same as
+  #    default :foo => lambda { Rails.env }
 
-  def default hash
-    hash.each { |k, v| defaults[k.to_s] = v }
+  def default args, &block
+    if Hash === args
+      args.each { |k, v| defaults[k.to_s] = v }
+    elsif block_given?
+      defaults[args.to_s] = block
+    end
   end
 
   def defaults #:nodoc:

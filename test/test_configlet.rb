@@ -33,6 +33,23 @@ class TestConfiglet < MiniTest::Unit::TestCase
     assert_equal "bar", @cfg["foo"]
   end
 
+  def test_default_lambda
+    l = lambda { "bar" }
+    @cfg.default :foo => l
+
+    assert_equal(l, @cfg.defaults["foo"])
+    assert_equal "bar", @cfg["foo"]
+    assert_equal "bar", @cfg.defaults["foo"]
+  end
+
+  def test_default_method_block
+    block = lambda { "bar" }
+    @cfg.default :foo, &block
+
+    assert_equal block, @cfg.defaults["foo"]
+    assert_equal "bar", @cfg[:foo]
+  end
+
   def test_get
     ENV["FOO"] = "bar"
     assert_equal "bar", @cfg[:foo]
