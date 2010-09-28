@@ -45,6 +45,20 @@ resolved the first time its value is grabbed.
 Configlet is a module, so +include+ or +extend+ it wherever you
 want. It extends itself for your convenience.
 
+== Transformation
+
+Want something other than a string? You can munge any value:
+
+    default :url => "http://example.org"
+    munge(:url) { |v| URI.parse v }
+    Configlet[:url] # => #<URI::HTTP:0xdeadbeef URL:http://example.org>
+
+In fact, there's a shortcut just for URLs. I haven't added any others
+'cause I haven't needed to care:
+
+    url :url => "http://example.org"
+    Configlet[:url] # => #<URI::HTTP:0xcafebabe URL:http://example.org>
+
 == Installation
 
     $ gem install configlet
