@@ -1,5 +1,6 @@
-require "minitest/autorun"
 require "configlet"
+require "minitest/autorun"
+require "uri"
 
 class TestConfiglet < MiniTest::Unit::TestCase
   class Stub
@@ -73,5 +74,15 @@ class TestConfiglet < MiniTest::Unit::TestCase
     @cfg.prefix = "pow"
     @cfg[:thud] = "zap"
     assert_equal "zap", ENV["POW_THUD"]
+  end
+
+  def test_url
+    @cfg.url :example => "http://example.org"
+    assert_equal URI.parse("http://example.org"), @cfg[:example]
+  end
+
+  def test_url_block
+    @cfg.url(:example) { "http://example.org" }
+    assert_equal URI.parse("http://example.org"), @cfg[:example]
   end
 end

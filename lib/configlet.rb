@@ -111,6 +111,18 @@ module Configlet
     @mungers ||= Hash.new { |h, k| I }
   end
 
+  # Behaves exactly like +default+, but additionally installs a munger
+  # for each key that calls <tt>URI.parse</tt>.
+
+  def url args, &block
+    default args, &block
+    require "uri"
+
+    (args.keys rescue [args]).each do |key|
+      munge(key) { |v| URI.parse v }
+    end
+  end
+
   # Set prefix to +nil+, clear defaults and mungers.
 
   def reset
