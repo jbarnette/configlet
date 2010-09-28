@@ -1,3 +1,9 @@
+=== 2.0.0 / 2010-09-28
+
+* Remove deprecated features.
+* Add doco on transformations.
+* Add sugar for munging URL args.
+
 === 1.3.0 / 2010-05-24
 
 * Add support for lazy defaults.
