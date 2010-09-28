@@ -88,11 +88,6 @@ module Configlet
     instance_eval(&block)
   end
 
-  def for *args, &block #:nodoc:
-    warn "Configlet.for is deprecated, and will be removed in 2.0."
-    config(*args, &block)
-  end
-
   # Mess with a value when it's retrieved. Useful for turning untyped
   # environment strings into numbers, booleans, enums, or class
   # instances. Here's how to munge a boolean:
@@ -121,16 +116,6 @@ module Configlet
     (args.keys rescue [args]).each do |key|
       munge(key) { |v| URI.parse v }
     end
-  end
-
-  # Set prefix to +nil+, clear defaults and mungers.
-
-  def reset
-    warn "Configlet.reset is deprecated, and will be removed in 2.0."
-    self.prefix = nil
-
-    defaults.clear
-    mungers.clear
   end
 
   extend self
