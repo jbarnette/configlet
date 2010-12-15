@@ -82,10 +82,16 @@ module Configlet
   #      default "email.from" => "noreply@myapp.com"
   #      default :host        => "myapp.local"
   #    end
+  #
+  # If +prefix+ isn't specified, a downcased version of the current
+  # class' name will be used.
 
-  def config prefix, &block
-    self.prefix = prefix
-    instance_eval(&block)
+  def config prefix = nil, &block
+    self.prefix = prefix ||
+      (Class === self ? self : self.class).
+        name.split("::").last.downcase.to_sym
+
+    instance_eval(&block) if block_given?
   end
 
   # Mess with a value when it's retrieved. Useful for turning untyped

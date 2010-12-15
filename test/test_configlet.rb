@@ -27,6 +27,13 @@ class TestConfiglet < MiniTest::Unit::TestCase
     assert_equal "baz", @cfg[:bar]
   end
 
+  def test_config_auto_prefix
+
+    ENV["STUB_FOO"] = "bar"
+    @cfg.config
+    assert_equal "bar", @cfg[:foo]
+  end
+
   def test_default
     assert_nil @cfg["foo"]
 
