@@ -13,7 +13,7 @@ module Configlet
 
   # Duh.
 
-  VERSION = "2.0.0"
+  VERSION = "2.1.0"
 
   I = lambda { |v| v } #:nodoc:
 
