@@ -1,3 +1,7 @@
+=== 2.1.1 / 2010-12-17
+
+* Don't make decisions based on class when determining prefix.
+
 === 2.1.0 / 2010-12-14
 
 * Make config prefix optional, default to class name (ish).
