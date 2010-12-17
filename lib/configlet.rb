@@ -88,7 +88,7 @@ module Configlet
 
   def config prefix = nil, &block
     self.prefix = prefix ||
-      (Class === self ? self : self.class).
+      (respond_to?(:name) ? self : self.class).
         name.split("::").last.downcase.to_sym
 
     instance_eval(&block) if block_given?
